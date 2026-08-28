@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PetaLab — Spatial Research for Economic and Social Development</title>
+
+  <meta
+    name="description"
+    content="PetaLab is an Indonesian nonprofit spatial research initiative using Earth observation, maps, and spatial data to uncover overlooked dimensions of development."
+  />
+
+  <style>
+    :root {
+      --cloud: #F5F7F3;
+      --teal: #167D78;
+      --mist: #B8D8C8;
+      --ink: #16201D;
+      --muted: #66716D;
+      --white: #FFFFFF;
+      --line: rgba(22, 32, 29, 0.14);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cloud);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: auto;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    h1 {
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 600;
+      max-width: 850px;
+    }
+
+    h2 {
+      font-size: clamp(38px, 5vw, 64px);
+      font-weight: 600;
+      max-width: 850px;
+    }
+
+    h3 {
+      font-size: 28px;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    /* BUTTONS */
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: white;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--ink);
+    }
+
+    /* NAVIGATION */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245, 247, 243, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .navbar-inner {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--teal);
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: calc(100vh - 70px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      font-size: 19px;
+      max-width: 650px;
+      margin-top: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    /* ABSTRACT MAP */
+
+    .map {
+      height: 520px;
+      position: relative;
+      overflow: hidden;
+      border-left: 1px solid var(--line);
+
+      background:
+        linear-gradient(
+          rgba(22, 125, 120, 0.07) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(22, 125, 120, 0.07) 1px,
+          transparent 1px
+        );
+
+      background-size: 48px 48px;
+    }
+
+    .map::before {
+      content: "";
+      position: absolute;
+      width: 390px;
+      height: 390px;
+      right: -80px;
+      top: 60px;
+      border: 1px solid rgba(22, 125, 120, 0.35);
+      border-radius: 50%;
+    }
+
+    .map::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: 35px;
+      top: 130px;
+      border: 1px solid rgba(22, 125, 120, 0.25);
+      border-radius: 50%;
+    }
+
+    .island {
+      position: absolute;
+      background: var(--teal);
+      border-radius: 999px;
+      opacity: 0.85;
+    }
+
+    .sumatra {
+      width: 115px;
+      height: 10px;
+      left: 60px;
+      top: 220px;
+      transform: rotate(48deg);
+    }
+
+    .java {
+      width: 145px;
+      height: 9px;
+      left: 165px;
+      top: 300px;
+      transform: rotate(8deg);
+    }
+
+    .kalimantan {
+      width: 90px;
+      height: 40px;
+      left: 210px;
+      top: 170px;
+      border-radius: 50%;
+    }
+
+    .sulawesi {
+      width: 75px;
+      height: 10px;
+      left: 325px;
+      top: 205px;
+      transform: rotate(50deg);
+    }
+
+    .papua {
+      width: 145px;
+      height: 25px;
+      right: 20px;
+      top: 225px;
+      border-radius: 50%;
+    }
+
+    .map-label {
+      position: absolute;
+      color: var(--teal);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .map-label.top {
+      top: 50px;
+      left: 40px;
+    }
+
+    .map-label.bottom {
+      bottom: 45px;
+      right: 25px;
+    }
+
+    /* SPLIT SECTIONS */
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 85px;
+    }
+
+    .copy {
+      font-size: 18px;
+    }
+
+    .copy p + p {
+      margin-top: 18px;
+    }
+
+    /* DARK */
+
+    .dark {
+      background: var(--ink);
+      color: white;
+    }
+
+    .dark p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .dark .eyebrow {
+      color: var(--mist);
+    }
+
+    .process {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 36px;
+    }
+
+    .process span {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .process .item {
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 100px;
+      padding: 10px 13px;
+    }
+
+    .process .arrow {
+      color: var(--mist);
+    }
+
+    /* CENTRES */
+
+    .centre-list {
+      margin-top: 60px;
+      border-top: 1px solid var(--line);
+    }
+
+    .centre {
+      display: grid;
+      grid-template-columns: 90px 1fr 1fr;
+      gap: 30px;
+      padding: 38px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .centre-number {
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .centre h3 {
+      font-size: clamp(26px, 3vw, 42px);
+    }
+
+    /* REI */
+
+    .rei-section {
+      background: var(--mist);
+    }
+
+    .rei-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 58px;
+      border-top: 1px solid rgba(22,32,29,0.2);
+    }
+
+    .rei {
+      padding: 38px 34px 38px 0;
+      border-right: 1px solid rgba(22,32,29,0.2);
+    }
+
+    .rei + .rei {
+      padding-left: 34px;
+    }
+
+    .rei:last-child {
+      border-right: none;
+    }
+
+    .rei-letter {
+      color: var(--teal);
+      font-size: 95px;
+      line-height: 1;
+      margin-bottom: 25px;
+    }
+
+    .rei h3 {
+      margin-bottom: 12px;
+    }
+
+    /* RESEARCH */
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 52px;
+    }
+
+    .research-card {
+      border-top: 1px solid var(--ink);
+      padding-top: 16px;
+    }
+
+    .research-image {
+      aspect-ratio: 4 / 3;
+      margin-bottom: 22px;
+      position: relative;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(22,125,120,0.22),
+          rgba(184,216,200,0.9)
+        );
+    }
+
+    .research-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent 0 29px,
+          rgba(255,255,255,0.22) 30px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0 29px,
+          rgba(255,255,255,0.22) 30px
+        );
+    }
+
+    .category {
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .research-card h3 {
+      margin: 10px 0 12px;
+      font-size: 25px;
+    }
+
+    .research-card p {
+      font-size: 15px;
+    }
+
+    /* LATEST UPDATES */
+
+    .updates-section {
+      background: rgba(184,216,200,0.24);
+    }
+
+    .update-list {
+      margin-top: 42px;
+    }
+
+    .update {
+      display: grid;
+      grid-template-columns: 120px 170px 1fr;
+      gap: 25px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .update:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .update-date {
+      font-size: 12px;
+    }
+
+    .update-type {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .update-title {
+      font-weight: 700;
+    }
+
+    /* PRINCIPLES */
+
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 50px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .principle {
+      padding: 28px 24px;
+      border-right: 1px solid var(--line);
+    }
+
+    .principle:last-child {
+      border-right: none;
+    }
+
+    .principle h3 {
+      color: var(--teal);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .principle p {
+      font-size: 14px;
+    }
+
+    /* GET INVOLVED */
+
+    .involved-section {
+      background: var(--teal);
+      color: white;
+    }
+
+    .involved-section .eyebrow {
+      color: var(--mist);
+    }
+
+    .involved-section p {
+      color: rgba(255,255,255,0.78);
+    }
+
+    .involved-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      margin-top: 56px;
+      border-top: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .involved-card {
+      padding: 32px 32px 32px 0;
+      border-right: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .involved-card + .involved-card {
+      padding-left: 32px;
+    }
+
+    .involved-card:last-child {
+      border-right: none;
+    }
+
+    .involved-card h3 {
+      margin-bottom: 14px;
+    }
+
+    .white-link {
+      display: inline-block;
+      margin-top: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+      padding-bottom: 4px;
+      font-weight: bold;
+    }
+
+    /* NEWSLETTER */
+
+    .newsletter-grid {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 70px;
+      align-items: end;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 10px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 17px;
+      padding: 14px 0;
+    }
+
+    .newsletter-form button {
+      border: none;
+      background: transparent;
+      color: var(--teal);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: var(--ink);
+      color: white;
+      padding: 65px 0 30px;
+    }
+
+    footer p,
+    footer a {
+      color: rgba(255,255,255,0.65);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+    }
+
+    .footer-brand {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .footer-label {
+      color: var(--mist);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 9px;
+      font-size: 14px;
+    }
+
+    .copyright {
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.4);
+      font-size: 12px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+      .nav-links a:not(.btn) {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid,
+      .split,
+      .newsletter-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .map {
+        height: 390px;
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
+
+      .centre {
+        grid-template-columns: 55px 1fr;
+      }
+
+      .centre p {
+        grid-column: 2;
+      }
+
+      .rei-grid,
+      .research-grid,
+      .involved-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rei,
+      .rei + .rei,
+      .involved-card,
+      .involved-card + .involved-card {
+        padding: 30px 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(22,32,29,0.18);
+      }
+
+      .involved-card,
+      .involved-card + .involved-card {
+        border-bottom-color: rgba(255,255,255,0.2);
+      }
+
+      .principle-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .update {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+
+      section {
+        padding: 75px 0;
+      }
+
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      h1 {
+        font-size: 49px;
+      }
+
+      .principle-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .principle {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-form button {
+        text-align: left;
+        padding-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="container navbar-inner">
+
+    <a href="#top" class="logo">
+      PetaLab
+    </a>
+
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#centres">Centres</a>
+      <a href="#rei">How We Work</a>
+      <a href="#research">Research</a>
+
+      <a href="#involved" class="btn btn-primary">
+        Get Involved
+      </a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main id="top">
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="container hero-grid">
+
+    <div>
+
+      <div class="eyebrow">
+        Indonesian Spatial Research
+      </div>
+
+      <h1>
+        Utilizing Space for Economic and Social Development
+      </h1>
+
+      <p class="hero-copy">
+        PetaLab uses space-based technology and spatial data
+        to reveal dimensions of development that are often overlooked.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="#research" class="btn btn-primary">
+          Explore Our Work
+        </a>
+
+        <a href="#involved" class="btn btn-secondary">
+          Get Involved
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="map">
+
+      <div class="map-label top">
+        Earth Observation · Indonesia
+      </div>
+
+      <div class="map-label bottom">
+        Spatial Analysis
+      </div>
+
+      <span class="island sumatra"></span>
+      <span class="island java"></span>
+      <span class="island kalimantan"></span>
+      <span class="island sulawesi"></span>
+      <span class="island papua"></span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+  <div class="container split">
+
+    <div>
+
+      <div class="eyebrow">
+        About PetaLab
+      </div>
+
+      <h2>
+        We use spatial insight to see what conventional perspectives often miss.
+      </h2>
+
+    </div>
+
+
+    <div class="copy">
+
+      <p>
+        PetaLab is a nonprofit initiative exploring how
+        space-based technology and spatial data can improve
+        the way we understand economic, environmental,
+        and social development.
+      </p>
+
+      <p>
+        We combine research, Earth observation,
+        spatial analysis, and accessible communication
+        to transform complex geographic information
+        into meaningful insight.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHY -->
+
+<section class="dark">
+
+  <div class="container split">
+
+    <div>
+
+      <div class="eyebrow">
+        Why Space + Place Matter
+      </div>
+
+      <h2>
+        Development is spatial.
+      </h2>
+
+    </div>
+
+
+    <div class="copy">
+
+      <p>
+        Climate risk, agricultural productivity,
+        environmental change, urban growth,
+        infrastructure, and inequality all happen somewhere.
+      </p>
+
+      <p>
+        Maps and Earth observation help reveal patterns
+        and changes that conventional statistics may not fully show.
+      </p>
+
+
+      <div class="process">
+
+        <span class="item">Satellite</span>
+        <span class="arrow">→</span>
+
+        <span class="item">Spatial Data</span>
+        <span class="arrow">→</span>
+
+        <span class="item">Pattern</span>
+        <span class="arrow">→</span>
+
+        <span class="item">Insight</span>
+        <span class="arrow">→</span>
+
+        <span class="item">Action</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CENTRES -->
+
+<section id="centres">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      Our Centres
+    </div>
+
+    <h2>
+      Research where space, place, and development intersect.
+    </h2>
+
+
+    <div class="centre-list">
+
+      <article class="centre">
+
+        <div class="centre-number">
+          01
+        </div>
+
+        <h3>
+          Climate & Environment
+        </h3>
+
+        <p>
+          Explore climate change, environmental transformation,
+          land cover, heat, ecological change, and vulnerability
+          through Earth observation and spatial analysis.
+        </p>
+
+      </article>
+
+
+      <article class="centre">
+
+        <div class="centre-number">
+          02
+        </div>
+
+        <h3>
+          Agriculture
+        </h3>
+
+        <p>
+          Explore food security, crop health,
+          land productivity, drought,
+          agricultural transformation,
+          and rural landscapes through spatial data.
+        </p>
+
+      </article>
+
+
+      <article class="centre">
+
+        <div class="centre-number">
+          03
+        </div>
+
+        <h3>
+          Sustainable Cities
+        </h3>
+
+        <p>
+          Explore urban heat, green space,
+          land use, density, urban growth,
+          and environmental challenges
+          facing rapidly growing cities.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REI -->
+
+<section class="rei-section" id="rei">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      How We Communicate
+    </div>
+
+    <h2>
+      From spatial data to public understanding.
+    </h2>
+
+
+    <div class="rei-grid">
+
+      <article class="rei">
+
+        <div class="rei-letter">
+          R
+        </div>
+
+        <h3>
+          REALIZE
+        </h3>
+
+        <p>
+          Reveal something that was previously
+          unseen, unnoticed, or overlooked.
+        </p>
+
+      </article>
+
+
+      <article class="rei">
+
+        <div class="rei-letter">
+          E
+        </div>
+
+        <h3>
+          EDUCATE
+        </h3>
+
+        <p>
+          Explain spatial data,
+          technology, concepts,
+          and methodology in an accessible way.
+        </p>
+
+      </article>
+
+
+      <article class="rei">
+
+        <div class="rei-letter">
+          I
+        </div>
+
+        <h3>
+          INSPIRE
+        </h3>
+
+        <p>
+          Show how evidence and spatial insight
+          can reveal possibilities for solutions and action.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- RESEARCH -->
+
+<section id="research">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      Featured Insights
+    </div>
+
+    <h2>
+      Seeing development differently.
+    </h2>
+
+
+    <!--
+      =========================================================
+      UPDATE REGULARLY:
+      Ganti isi 3 article di bawah setiap ada research baru.
+      =========================================================
+    -->
+
+    <div class="research-grid">
+
+      <article class="research-card">
+
+        <div class="research-image"></div>
+
+        <div class="category">
+          Agriculture
+        </div>
+
+        <h3>
+          Reading Agricultural Change from Space
+        </h3>
+
+        <p>
+          How satellite imagery and spatial data
+          can reveal changes in crop health,
+          land conditions, and agricultural productivity.
+        </p>
+
+      </article>
+
+
+      <article class="research-card">
+
+        <div class="research-image"></div>
+
+        <div class="category">
+          Sustainable Cities
+        </div>
+
+        <h3>
+          Where Are Indonesian Cities Getting Hotter?
+        </h3>
+
+        <p>
+          Using satellite-based land surface temperature
+          to reveal patterns of urban heat
+          across rapidly growing cities.
+        </p>
+
+      </article>
+
+
+      <article class="research-card">
+
+        <div class="research-image"></div>
+
+        <div class="category">
+          Climate & Environment
+        </div>
+
+        <h3>
+          Seeing Environmental Change from Above
+        </h3>
+
+        <p>
+          How Earth observation can reveal
+          environmental transformations
+          that are difficult to understand from the ground.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- LATEST UPDATES -->
+
+<section class="updates-section">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      Latest Updates
+    </div>
+
+    <h2>
+      What’s happening at PetaLab.
+    </h2>
+
+
+    <!--
+      UPDATE REGULARLY:
+      Ganti/add update di bagian ini.
+    -->
+
+    <div class="update-list">
+
+      <div class="update">
+
+        <div class="update-date">
+          2026
+        </div>
+
+        <div class="update-type">
+          Research
+        </div>
+
+        <div class="update-title">
+          Gedangsari case study — research in progress
+        </div>
+
+      </div>
+
+
+      <div class="update">
+
+        <div class="update-date">
+          Coming Soon
+        </div>
+
+        <div class="update-type">
+          Publication
+        </div>
+
+        <div class="update-title">
+          First PetaLab spatial insight series
+        </div>
+
+      </div>
+
+
+      <div class="update">
+
+        <div class="update-date">
+          Coming Soon
+        </div>
+
+        <div class="update-type">
+          Community
+        </div>
+
+        <div class="update-title">
+          Collaboration and contributor opportunities
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PRINCIPLES -->
+
+<section>
+
+  <div class="container">
+
+    <div class="eyebrow">
+      Our Approach
+    </div>
+
+    <h2>
+      Credibility matters.
+    </h2>
+
+
+    <div class="principle-grid">
+
+      <div class="principle">
+
+        <h3>
+          Data-Driven
+        </h3>
+
+        <p>
+          Evidence before assumptions.
+        </p>
+
+      </div>
+
+
+      <div class="principle">
+
+        <h3>
+          Transparent Methodology
+        </h3>
+
+        <p>
+          Methods should be understandable
+          and open to scrutiny.
+        </p>
+
+      </div>
+
+
+      <div class="principle">
+
+        <h3>
+          Academic Integrity
+        </h3>
+
+        <p>
+          Research should respect
+          evidence, attribution, and uncertainty.
+        </p>
+
+      </div>
+
+
+      <div class="principle">
+
+        <h3>
+          Accessible Communication
+        </h3>
+
+        <p>
+          Complex spatial knowledge
+          should remain understandable.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- GET INVOLVED -->
+
+<section class="involved-section" id="involved">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      Get Involved
+    </div>
+
+    <h2>
+      Work with PetaLab.
+    </h2>
+
+    <p style="max-width:680px; margin-top:20px;">
+      We believe better spatial insight
+      comes through collaboration across
+      disciplines, institutions, and communities.
+    </p>
+
+
+    <div class="involved-grid">
+
+      <article class="involved-card">
+
+        <h3>
+          Collaborate
+        </h3>
+
+        <p>
+          For universities, researchers,
+          NGOs, foundations, and institutions
+          interested in research or spatial analysis.
+        </p>
+
+        <a
+          href="mailto:hello@petalab.org"
+          class="white-link"
+        >
+          Discuss a Collaboration →
+        </a>
+
+      </article>
+
+
+      <article class="involved-card">
+
+        <h3>
+          Contribute
+        </h3>
+
+        <p>
+          For researchers, students,
+          spatial analysts, designers,
+          writers, and volunteers.
+        </p>
+
+        <a
+          href="mailto:hello@petalab.org"
+          class="white-link"
+        >
+          Join PetaLab →
+        </a>
+
+      </article>
+
+
+      <article class="involved-card">
+
+        <h3>
+          Stay Updated
+        </h3>
+
+        <p>
+          Follow new research,
+          maps, publications,
+          events, and opportunities.
+        </p>
+
+        <a
+          href="#newsletter"
+          class="white-link"
+        >
+          Stay Updated →
+        </a>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- NEWSLETTER -->
+
+<section id="newsletter">
+
+  <div class="container newsletter-grid">
+
+    <div>
+
+      <div class="eyebrow">
+        PetaLab Newsletter
+      </div>
+
+      <h2>
+        See What Maps Can Reveal.
+      </h2>
+
+      <p style="margin-top:20px;">
+        Research, spatial insights,
+        maps, and stories from PetaLab.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <!--
+        FORM BELUM AKTIF.
+        Nanti sambungkan ke Mailchimp/Brevo/Formspree.
+      -->
+
+      <form
+        class="newsletter-form"
+        action="#"
+      >
+
+        <input
+          type="email"
+          placeholder="Your email address"
+          required
+        />
+
+        <button type="submit">
+          Subscribe →
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <div class="footer-brand">
+          PetaLab
+        </div>
+
+        <p>
+          Utilizing Space for Economic
+          and Social Development.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <div class="footer-label">
+          Explore
+        </div>
+
+        <div class="footer-links">
+
+          <a href="#about">
+            About
+          </a>
+
+          <a href="#centres">
+            Centres
+          </a>
+
+          <a href="#research">
+            Research
+          </a>
+
+          <a href="#rei">
+            How We Work
+          </a>
+
+          <a href="#involved">
+            Get Involved
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <div class="footer-label">
+          Connect
+        </div>
+
+        <div class="footer-links">
+
+          <a href="#">
+            Instagram
+          </a>
+
+          <a href="#">
+            LinkedIn
+          </a>
+
+          <a href="mailto:hello@petalab.org">
+            hello@petalab.org
+          </a>
+
+          <span style="color:rgba(255,255,255,.65);">
+            Indonesia
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="copyright">
+      © 2026 PetaLab.
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+</html>
