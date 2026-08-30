@@ -352,12 +352,12 @@ Test
       <!-- Sumatra -->
       <path
         d="
-          M115 319
-          C135 299 154 283 172 284
-          C184 297 195 319 208 347
-          C220 375 231 406 226 421
-          C214 428 198 412 184 391
-          C165 363 143 342 115 319
+          M115319
+          C135299154283172284
+          C184297195319208347
+          C220375231406226421
+          C214428198412184391
+          C165363143342115319
           Z
         "
       />
@@ -365,11 +365,11 @@ Test
       <!-- Java -->
       <path
         d="
-          M222 454
-          C270 448 323 450 381 461
-          C392 464 398 472 389 478
-          C340 480 285 474 230 466
-          C219 464 214 458 222 454
+          M222454
+          C270448323450381461
+          C392464398472389478
+          C340480285474230466
+          C219464214458222454
           Z
         "
       />
@@ -377,11 +377,11 @@ Test
       <!-- Kalimantan -->
       <path
         d="
-          M296 288
-          C318 266 357 262 383 281
-          C403 297 410 329 399 353
-          C386 381 349 394 320 379
-          C296 365 280 327 296 288
+          M296288
+          C318266357262383281
+          C403297410329399353
+          C386381349394320379
+          C296365280327296288
           Z
         "
       />
@@ -389,13 +389,13 @@ Test
       <!-- Sulawesi -->
       <path
         d="
-          M425 325
-          C445 310 461 315 467 332
-          C469 349 457 362 464 376
-          C473 394 494 398 491 414
-          C481 427 462 411 452 396
-          C443 383 440 367 427 359
-          C415 351 412 335 425 325
+          M425325
+          C445310461315467332
+          C469349457362464376
+          C473394494398491414
+          C481427462411452396
+          C443383440367427359
+          C415351412335425325
           Z
         "
       />
@@ -403,11 +403,11 @@ Test
       <!-- Papua -->
       <path
         d="
-          M541 355
-          C574 342 620 343 662 361
-          C676 367 681 381 670 389
-          C628 402 588 399 549 385
-          C532 379 526 364 541 355
+          M541355
+          C574342620343662361
+          C676367681381670389
+          C628402588399549385
+          C532379526364541355
           Z
         "
       />
@@ -552,6 +552,151 @@ Test
 
   </div>
 
+.map-panel {
+  aspect-ratio: 0.92;
+  background:
+    radial-gradient(
+      circle at 72% 32%,
+      rgba(56, 184, 172, 0.10),
+      transparent 32%
+    ),
+    #091612;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.14);
+
+  border-radius: 0;
+  box-shadow: none;
+  min-height: 540px;
+  overflow: hidden;
+  position: relative;
+}
+
+.map-panel::before,
+.map-panel::after {
+  display: none;
+}
+
+.map-header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  left: 26px;
+  position: absolute;
+  right: 26px;
+  top: 24px;
+  z-index: 5;
+}
+
+.map-header > div {
+  display: grid;
+  gap: 4px;
+}
+
+.map-overline {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.map-header strong {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.map-code {
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+
+/* SVG */
+
+.refined-map {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+
+/* footer */
+
+.map-footer {
+  align-items: flex-end;
+  bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  left: 26px;
+  position: absolute;
+  right: 26px;
+  z-index: 5;
+}
+
+.map-footer > div:first-child {
+  display: grid;
+  gap: 5px;
+}
+
+.map-footer span {
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.map-footer strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.map-footer-index {
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+
+/* mobile */
+
+@media (max-width: 980px) {
+
+  .map-panel {
+    aspect-ratio: 1.2;
+    min-height: 440px;
+  }
+
+}
+
+
+@media (max-width: 640px) {
+
+  .map-panel {
+    aspect-ratio: 0.95;
+    min-height: 430px;
+  }
+
+  .map-header {
+    left: 20px;
+    right: 20px;
+    top: 20px;
+  }
+
+  .map-footer {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+  }
+
+}
 </div>
     /* SPLIT SECTIONS */
 
@@ -1890,158 +2035,3 @@ Test
 </body>
 </html>
 
-/* =========================================
-   REFINED HERO MAP
-   ========================================= */
-
-.map-panel {
-  aspect-ratio: 0.92;
-  background:
-    radial-gradient(
-      circle at 72% 32%,
-      rgba(56, 184, 172, 0.10),
-      transparent 32%
-    ),
-    #091612;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.14);
-
-  border-radius: 0;
-  box-shadow: none;
-  min-height: 540px;
-  overflow: hidden;
-  position: relative;
-}
-
-
-/* remove previous decorative circle */
-
-.map-panel::before,
-.map-panel::after {
-  display: none;
-}
-
-
-/* top information */
-
-.map-header {
-  align-items: flex-start;
-  display: flex;
-  justify-content: space-between;
-  left: 26px;
-  position: absolute;
-  right: 26px;
-  top: 24px;
-  z-index: 5;
-}
-
-.map-header > div {
-  display: grid;
-  gap: 4px;
-}
-
-.map-overline {
-  color: rgba(255, 255, 255, 0.42);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.map-header strong {
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.map-code {
-  color: rgba(255, 255, 255, 0.36);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-
-/* SVG */
-
-.refined-map {
-  height: 100%;
-  inset: 0;
-  position: absolute;
-  width: 100%;
-}
-
-
-/* footer */
-
-.map-footer {
-  align-items: flex-end;
-  bottom: 25px;
-  display: flex;
-  justify-content: space-between;
-  left: 26px;
-  position: absolute;
-  right: 26px;
-  z-index: 5;
-}
-
-.map-footer > div:first-child {
-  display: grid;
-  gap: 5px;
-}
-
-.map-footer span {
-  color: rgba(255, 255, 255, 0.38);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.map-footer strong {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.map-footer-index {
-  color: var(--teal);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-}
-
-
-/* mobile */
-
-@media (max-width: 980px) {
-
-  .map-panel {
-    aspect-ratio: 1.2;
-    min-height: 440px;
-  }
-
-}
-
-
-@media (max-width: 640px) {
-
-  .map-panel {
-    aspect-ratio: 0.95;
-    min-height: 430px;
-  }
-
-  .map-header {
-    left: 20px;
-    right: 20px;
-    top: 20px;
-  }
-
-  .map-footer {
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-  }
-
-}
