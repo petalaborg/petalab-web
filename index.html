@@ -1889,3 +1889,159 @@ Test
 
 </body>
 </html>
+
+/* =========================================
+   REFINED HERO MAP
+   ========================================= */
+
+.map-panel {
+  aspect-ratio: 0.92;
+  background:
+    radial-gradient(
+      circle at 72% 32%,
+      rgba(56, 184, 172, 0.10),
+      transparent 32%
+    ),
+    #091612;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.14);
+
+  border-radius: 0;
+  box-shadow: none;
+  min-height: 540px;
+  overflow: hidden;
+  position: relative;
+}
+
+
+/* remove previous decorative circle */
+
+.map-panel::before,
+.map-panel::after {
+  display: none;
+}
+
+
+/* top information */
+
+.map-header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  left: 26px;
+  position: absolute;
+  right: 26px;
+  top: 24px;
+  z-index: 5;
+}
+
+.map-header > div {
+  display: grid;
+  gap: 4px;
+}
+
+.map-overline {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.map-header strong {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.map-code {
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+
+/* SVG */
+
+.refined-map {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+
+/* footer */
+
+.map-footer {
+  align-items: flex-end;
+  bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  left: 26px;
+  position: absolute;
+  right: 26px;
+  z-index: 5;
+}
+
+.map-footer > div:first-child {
+  display: grid;
+  gap: 5px;
+}
+
+.map-footer span {
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.map-footer strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.map-footer-index {
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+
+/* mobile */
+
+@media (max-width: 980px) {
+
+  .map-panel {
+    aspect-ratio: 1.2;
+    min-height: 440px;
+  }
+
+}
+
+
+@media (max-width: 640px) {
+
+  .map-panel {
+    aspect-ratio: 0.95;
+    min-height: 430px;
+  }
+
+  .map-header {
+    left: 20px;
+    right: 20px;
+    top: 20px;
+  }
+
+  .map-footer {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+  }
+
+}
