@@ -1,0 +1,232 @@
+/* RESPONSIVE */
+
+    @media (max-width: 940px) {
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid,
+      .split,
+      .section-intro,
+      .newsletter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .map-panel {
+        aspect-ratio: 1.42;
+        min-height: 360px;
+      }
+
+      .centre {
+        grid-template-columns: 56px 1fr;
+      }
+
+      .centre p {
+        grid-column: 2;
+      }
+
+      .principles-block {
+        grid-template-columns: 1fr;
+      }
+
+      .principles-heading {
+        max-width: 520px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-grid > div:first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .menu-button {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        align-items: stretch;
+        background: var(--cloud);
+        border: 1px solid var(--line);
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        padding: 12px;
+        position: absolute;
+        right: 24px;
+        top: 78px;
+        width: min(320px, calc(100vw - 48px));
+      }
+
+      .nav-links.is-open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 11px 10px;
+      }
+
+      .nav-links .btn {
+        margin-top: 5px;
+        width: 100%;
+      }
+
+      .rei-grid,
+      .research-grid,
+      .involved-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rei,
+      .rei + .rei,
+      .involved-card,
+      .involved-card + .involved-card {
+        border-bottom: 1px solid rgba(16, 28, 25, .18);
+        border-right: none;
+        min-height: 0;
+        padding: 28px 0;
+      }
+
+      .rei-index {
+        margin-bottom: 22px;
+      }
+
+      .involved-card,
+      .involved-card + .involved-card {
+        border-bottom-color: rgba(255,255,255,.22);
+      }
+
+      .rei:last-child,
+      .involved-card:last-child {
+        border-bottom: none;
+      }
+
+      .update {
+        gap: 6px;
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: calc(100% - 30px);
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      h1 {
+        font-size: clamp(48px, 15vw, 68px);
+      }
+
+      .hero-buttons {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .hero-meta {
+        gap: 7px;
+      }
+
+      .principles-block {
+        margin-top: 42px;
+      }
+
+      .principle-list {
+        grid-template-columns: 1fr;
+      }
+
+      .principle {
+        min-height: 0;
+        padding: 22px;
+      }
+
+      .principle-number {
+        margin-bottom: 20px;
+      }
+
+      .map-panel {
+        aspect-ratio: 1.18;
+        min-height: 330px;
+      }
+
+      .map-header,
+      .map-footer {
+        left: 19px;
+        right: 19px;
+      }
+
+      .map-header {
+        top: 18px;
+      }
+
+      .map-footer {
+        bottom: 18px;
+      }
+
+      .centre {
+        gap: 11px;
+        grid-template-columns: 1fr;
+      }
+
+      .centre p {
+        grid-column: 1;
+      }
+
+      .newsletter-form {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .newsletter-form button {
+        padding: 0 0 12px;
+        text-align: left;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid > div:first-child {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .research-grid.has-active .research-card:not(.is-active) {
+        opacity: .66;
+        transform: scale(.99);
+      }
+
+      .research-card.is-active {
+        transform: translateY(-6px) scale(1.008);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
